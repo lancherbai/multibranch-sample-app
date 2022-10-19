@@ -21,7 +21,7 @@ pipeline {
         stage('Integration Test') {
             steps {
                 dir("./") {
-                    sh 'pytest'
+                    sh 'pytest --junitxml report.xml'
                 }
             }
             post {
