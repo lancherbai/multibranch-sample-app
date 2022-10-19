@@ -13,20 +13,20 @@ pipeline {
 
         stage('Install Package') {
             steps {
-                dir("multibranch-sample-app/") {
+                dir("./") {
                     sh 'pip install --user -r requirements.txt'
                 }
             }
         }
         stage('Integration Test') {
             steps {
-                dir("multibranch-sample-app/") {
+                dir("./") {
                     sh 'pytest'
                 }
             }
             post {
                 always {
-                    junit 'multibranch-sample-app/test-reports/*.xml'
+                    junit 'test-reports/*.xml'
                 }
             }
         }
