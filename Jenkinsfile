@@ -14,19 +14,19 @@ pipeline {
         stage('Install Package') {
             steps {
                 dir("./") {
-                    sh 'pip install --user -r requirements.txt'
+                    sh 'python3 -m pip install --user -r requirements.txt'
                 }
             }
         }
         stage('Integration Test') {
             steps {
                 dir("./") {
-                    sh 'pytest --junitxml report.xml'
+                    sh 'python3 -m pytest --junitxml ./reports/report_$(date "+%Y%m%d-%H%M%S").xml'
                 }
             }
             post {
                 always {
-                    junit '*.xml'
+                    junit './reports/*.xml'
                 }
             }
         }
