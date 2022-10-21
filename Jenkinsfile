@@ -30,5 +30,12 @@ pipeline {
                 }
             }
         }
+        stage('Keep') {
+            steps {
+                script {
+                    currentBuild.keepLog = true
+                }
+            }
+        }
     }
 }
