@@ -18,15 +18,33 @@ pipeline {
                 }
             }
         }
+//         stage('Integration Test') {
+//             steps {
+//                 dir("./") {
+//                     sh 'python3 -m pytest --junitxml ./reports/report_$(date "+%Y%m%d-%H%M%S").xml'
+//                 }
+//             }
+//             post {
+//                 always {
+//                     junit 'reports/*.xml'
+//                 }
+//             }
+//         }
         stage('Integration Test') {
             steps {
                 dir("./") {
-                    sh 'python3 -m pytest --junitxml ./reports/report_$(date "+%Y%m%d-%H%M%S").xml'
+                    sh 'python3 -m pytest --html reports/report-$(date "+%Y%m%d_%H%M%S").html --self-contained-html'
                 }
             }
             post {
                 always {
-                    junit 'reports/*.xml'
+                    publishHTML (target : [allowMissing: false,
+                     alwaysLinkToLastBuild: true,
+                     keepAll: true,
+                     reportDir: 'reports',
+                     reportFiles: '*.html',
+                     reportName: 'My Reports',
+                     reportTitles: 'The Report'])
                 }
             }
         }
