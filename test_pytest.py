@@ -2,5 +2,5 @@ import requests
 
 
 def test_response():
-    resp = requests.get("http://127.0.0.1:80")
+    resp = requests.get("https://www.baidu.com")
     assert resp.status_code == 200
